@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169,hyperref={pdfpagelabels=false}]{beamer}
 
 
-\usetheme{cpt-mssjo}
+\usetheme{cpt-unholy}
 \logo{\includegraphics[height=1cm]{CPTlogo.png}}
 
 \date{\today}
@@ -15,15 +15,35 @@
 \maketitle
 %%%%%%%%%
 
-\begin{frame}
-    \frametitle{title}
+\begin{frame}{Frame title}
 
     hello
     
 \end{frame}
 
 \begin{frame}{Frame Title}
-hello
+    \centering
+    hello
+    
+\end{frame}
+
+\begin{frame}{Frame Title}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        hello
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+        hello
+        \end{column}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}{Frame Title}
+    \begin{itemize}
+        \item[$\circ$] hello
+    \end{itemize}
     
 \end{frame}
 
