@@ -112,7 +112,7 @@
 
 % define a pie-like progress bar
 \addtocounter{framenumber}{-1}
-\newcommand{\progressbar}{%
+\newcommand{\pieprogressbar}{%
 \ifnum\insertframenumber>0%
 \pgfmathsetmacro{\theta}{360/\inserttotalframenumber*\insertframenumber}
 \begin{tikzpicture}[scale=0.025]
@@ -123,20 +123,25 @@
 \end{tikzpicture}%
 \fi
 }
+
 % set progress bar to be a pie
+\setbeamercolor{FootlineColor}{bg=PrimaryColor, fg=white}
 \setbeamertemplate{footline}{
     \ifnum\insertframenumber>0%
         \hfill
-        \begin{beamercolorbox}[wd=0.95\paperwidth, sep=1ex]{PrimaryColor}
-            \textcolor{PrimaryColor}{A. Lupo | }% 
-            \textcolor{PrimaryColor}{\inserttitle}
+        \begin{beamercolorbox}[wd=0.5\paperwidth, sep=1ex]{FootlineColor}
+            \textcolor{white}{\textbf{A. Lupo |} }% 
+            \textcolor{white}{\textbf{\inserttitle} }%
+            \textcolor{white}{}% 
         \end{beamercolorbox}%
         \hfill
-        \begin{beamercolorbox}[wd=0.05\paperwidth, sep=1ex]{}
-            \progressbar
+        \begin{beamercolorbox}[wd=0.5\paperwidth, sep=1ex]{FootlineColor}
+            %\progressbar
+            \textcolor{white}{\hfill \textbf{\insertframenumber/\inserttotalframenumber}}
         \end{beamercolorbox}%
     \fi
 }
+%
 
 % use \makeatletter for our progress bar definitions
 % progress bar idea from http://tex.stackexchange.com/a/59749/44221
@@ -184,10 +189,10 @@
         \else % other slides
             % gradient for the title bar here too of course
             \path[left color=PrimaryColor, right color=SecondaryColor]
-                (0, \slideheight-1cm) rectangle(\slidewidth,\slideheight);
+                (0, \slideheight-0.9cm) rectangle(\slidewidth,\slideheight);
 
             % slide title
-            \node[anchor=north,text width=\slidewidth-0.75cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight) {\color{BackgroundColor}\LARGE\textbf{\insertframetitle}};
+            \node[anchor=north,text width=\slidewidth-0.75cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight) {\color{BackgroundColor}\Large\textbf{\insertframetitle}};
 
             % logo (TODO: autoscale; now it expects 350x350
             \node[anchor=center] at (\slidewidth-0.7cm,\slideheight-.5cm){\insertlogo};
