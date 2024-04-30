@@ -2,6 +2,7 @@
 % Based on beamerthemelucid.sty
 
 \usepackage{comment}
+\usepackage{appendixnumberbeamer}
 \usepackage{tikz}
 \usetikzlibrary{calc}
 
@@ -124,20 +125,21 @@
 \fi
 }
 
-% set progress bar to be a pie
+\newcommand{\@shorttitle}{} % Initialize \@shorttitle
+
+% Define the command \shorttitle
+\newcommand{\shorttitle}[1]{\renewcommand{\@shorttitle}{#1}}
+
+% set footline
 \setbeamercolor{FootlineColor}{bg=PrimaryColor, fg=white}
 \setbeamertemplate{footline}{
     \ifnum\insertframenumber>0%
         \hfill
-        \begin{beamercolorbox}[wd=0.5\paperwidth, sep=1ex]{FootlineColor}
+        \begin{beamercolorbox}[wd=\paperwidth, sep=1ex]{FootlineColor}
             \textcolor{white}{\textbf{A. Lupo |} }% 
-            \textcolor{white}{\textbf{\inserttitle} }%
+            \textcolor{white}{\textbf{\@shorttitle} }% Use \@shorttitle
             \textcolor{white}{}% 
-        \end{beamercolorbox}%
-        \hfill
-        \begin{beamercolorbox}[wd=0.5\paperwidth, sep=1ex]{FootlineColor}
-            %\progressbar
-            \textcolor{white}{\hfill \textbf{\insertframenumber/\inserttotalframenumber}}
+            \hfill \textbf{\insertframenumber/\inserttotalframenumber}
         \end{beamercolorbox}%
     \fi
 }
@@ -177,7 +179,7 @@
                 (0, 6cm) rectangle(\slidewidth,\slideheight);
 
             % text (title, subtitle, author, date)
-            \node[anchor=south,text width=\slidewidth-1cm,inner xsep=0.5cm] at (0.5\slidewidth,6cm) {\color{BackgroundColor}\Huge\textbf{\inserttitle}};
+            \node[anchor=south,text width=\slidewidth-1cm,inner xsep=0.5cm] at (0.5\slidewidth,6cm) {\color{BackgroundColor}\Huge\textbf{\spaceskip=0.3em \inserttitle}};
             \node[anchor=east,text width=\slidewidth-1cm,align=left] at (\slidewidth-0.4cm,5cm) {\color{PrimaryColor}\large\textbf{\insertsubtitle}};
             \node[anchor=east,text width=\slidewidth-1cm, align=left] at (\slidewidth-0.4cm,3.5cm) {\color{PrimaryColor}\Large\insertauthor};
             \node[anchor=east,text width=\slidewidth-1cm, align=left] at (\slidewidth-0.4cm,2.cm) {\color{black}\large\insertinstitute};
