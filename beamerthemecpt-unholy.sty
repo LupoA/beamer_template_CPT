@@ -130,20 +130,31 @@
 % Define the command \shorttitle
 \newcommand{\shorttitle}[1]{\renewcommand{\@shorttitle}{#1}}
 
+\iffalse
 % set footline
 \setbeamercolor{FootlineColor}{bg=PrimaryColor, fg=white}
 \setbeamertemplate{footline}{
-    \ifnum\insertframenumber>0%
-        \hfill
-        \begin{beamercolorbox}[wd=\paperwidth, sep=1ex]{FootlineColor}
-            \textcolor{white}{\textbf{A. Lupo |} }% 
-            \textcolor{white}{\textbf{\@shorttitle} }% Use \@shorttitle
-            \textcolor{white}{}% 
-            \hfill \textbf{\insertframenumber/\inserttotalframenumber}
-        \end{beamercolorbox}%
-    \fi
+	\ifnum\insertframenumber>0 % Only render the footline if the frame number is greater than 0
+	\raisebox{0.1cm}[0cm][0cm]{ % Adjust height explicitly
+		\begin{beamercolorbox}[wd=\paperwidth, ht=0.4cm, dp=0.1cm]{FootlineColor}
+			\textcolor{white}{\textbf{A. Lupo | }}% 
+			\textcolor{white}{\textbf{\@shorttitle} }% Use \@shorttitle
+			\hfill \textbf{\insertframenumber/\inserttotalframenumber}
+		\end{beamercolorbox}%
+	}
+	\fi
 }
-%
+\fi
+
+%footline
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=0.25cm, dp=0.1cm]{FootlineColor}
+		\ifnum\insertframenumber>0
+		\hbox to \paperwidth{\textcolor{PrimaryColor}{\hspace{0.2cm} \textbf{A. Lupo | \textcolor{PrimaryColor}{\textbf{\@shorttitle} }}} \hfill \textcolor{PrimaryColor}{\textbf{\insertframenumber/\inserttotalframenumber}} \hspace{0.2cm}}
+		\fi
+	\end{beamercolorbox}
+}
+
 
 % use \makeatletter for our progress bar definitions
 % progress bar idea from http://tex.stackexchange.com/a/59749/44221
@@ -205,8 +216,7 @@
 }
 
 
-\makeatother
-
+\iffalse
 \AtBeginSection{\frame{\sectionpage}} % section pages
 \setbeamertemplate{section page}
 {
@@ -218,6 +228,26 @@
 		\node[text width=\the\paperwidth-1cm,align=center] at (0.4\slidewidth, 0.5\slideheight) {\color{BackgroundColor}\Huge\textbf{\insertsection}};
 	\end{tikzpicture}
 }
+\fi
+
+\makeatother
+
+\AtBeginSection{\frame{\sectionpage}} % section pages
+\setbeamertemplate{section page}
+{
+	\begin{tikzpicture}
+		% set up the entire slide as the canvas
+		\useasboundingbox (0,0) rectangle(\slidewidth,\slideheight);
+		% Increase the size of the rectangles for more space
+		\fill[color=BackgroundColor] (-1cm, 3cm) rectangle (\slidewidth, \slideheight+0.1cm); % Increased space on top
+		\fill[color=PrimaryColor] (-1cm, 0.5\slideheight-2.5cm) rectangle(\slidewidth, 0.5\slideheight+3cm);
+		\node[text width=\the\paperwidth-1cm, align=center] at (0.4\slidewidth, 0.5\slideheight) {
+			\color{BackgroundColor}\Huge\textbf{\insertsection}
+		};
+	\end{tikzpicture}
+}
+
+
 
 \setbeamerfont{alerted text}{series=\bfseries\boldmath}
 \renewcommand<>{\alert}[1]{%
